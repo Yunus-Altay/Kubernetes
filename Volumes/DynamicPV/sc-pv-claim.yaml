@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sc-pv-claim
+spec:
+  storageClassName: local-path
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 6Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: clarus-pv-pod
+  labels:
+    app: clarus-web
+spec:
+  volumes:
+    - name: clarus-pv-storage
+      persistentVolumeClaim:
+        claimName: sc-pv-claim
+  containers:
+    - name: mynginx
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: clarus-pv-storage
