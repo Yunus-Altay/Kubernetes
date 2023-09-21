@@ -1,3 +1,6 @@
+# new storage class is created in the userdata
+# check it
+kubectl get sc
 kubectl apply -f .
 kubectl get pv,pvc
 # you can check the PV under the folder whose path is "/opt/local-path-provisioner" in the worker node
