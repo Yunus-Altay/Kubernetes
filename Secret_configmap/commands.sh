@@ -31,6 +31,6 @@ kubectl create cm myconfig --from-literal=game=DOTA --from-literal=type=MOBA --f
 kubectl get cm
 kubectl get cm myconfig -o yaml
 kubectl apply -f mydeployment.yaml
-kubectl exec -it <pod-name> --sh
+kubectl exec -it <pod-name> -- sh
 cd /usr/share/nginx/html
 ls
