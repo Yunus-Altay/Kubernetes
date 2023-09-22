@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: clarusweb-pod
+spec:
+  containers:
+    - name: demo
+      image: clarusway/clarusweb:env
+      env:
+        - name: COLOR
+          valueFrom:
+            configMapKeyRef:
+              name: myconfig
+              key: mycolor

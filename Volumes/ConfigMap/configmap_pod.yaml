@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+        - name: demo
+          image: clarusways/demo:hello-config-file
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8888
+          volumeMounts:
+          - mountPath: /config/
+            name: demo-config-volume
+            readOnly: true
+      volumes:
+      - name: demo-config-volume
+        configMap:
+          name: demo-config
+          items:
+          - key: config
+            path: demo.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+  labels:
+    app: demo
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8888
+  selector:
+    app: demo
