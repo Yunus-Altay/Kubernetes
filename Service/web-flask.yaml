@@ -1,0 +1,39 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  # namespace: demo
+  name: web-flask-deploy
+  labels:
+    env: dev
+spec:
+  replicas: 3 
+  selector:  
+    matchLabels:
+      app: web-flask
+  minReadySeconds: 10 
+  strategy:
+    type: RollingUpdate 
+    rollingUpdate:
+      maxUnavailable: 1 
+      maxSurge: 1 
+  template: 
+    metadata:
+      labels:
+        app: web-flask
+    spec:
+      containers:
+      - name: web-flask-pod
+        image: clarusway/cw_web_flask1
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: forcurl
+spec:
+  containers:
+  - name: forcurl
+    image: clarusway/forping
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
