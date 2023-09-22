@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-dota
+  labels:
+    app: dota
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dota
+  template:
+    metadata:
+      labels:
+        app: dota
+    spec:
+      containers:
+        - name:  nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - mountPath: /usr/share/nginx/html/
+            name: nginx-side-volume
+            readOnly: true
+      volumes:
+      - name: nginx-side-volume
+        configMap:
+          name: myconfig
