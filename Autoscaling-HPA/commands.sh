@@ -1,4 +1,5 @@
 kubectl apply -f php-apache.yaml
+kubectl apply -f web.yaml
 kubectl get po,svc
 # curl <public-worker node-ip>:<node-port>
 # kubectl autoscale deployment php-apache --cpu-percent=50 --min=2 --max=10 
@@ -27,4 +28,4 @@ while true; do wget -q -O- http://<puplic ip>:<port number of php-apache-service
 # open another terminal
 kubectl run -it --rm load-generator_2 --image=busybox /bin/sh 
 while true; do wget -q -O- http://<puplic ip>:<port number of php-apache-service>; done
-# watch how the hpa reacts on the splitted terminal
+# watch how the HPA reacts on the splitted terminal
