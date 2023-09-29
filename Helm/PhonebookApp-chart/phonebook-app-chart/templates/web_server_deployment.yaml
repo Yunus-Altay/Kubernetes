@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-deployment
+  labels:
+    name: create-delete-update
+    app: phonebook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phonebook
+  template:
+    metadata:
+      labels:
+        name: create-delete-update
+        app: phonebook       
+    spec:
+      restartPolicy: Always    
+      containers:
+      - image: simaox/phonebook_1
+        name: bookstore-app-1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: phonebook-cm
+                key: MYSQL_DATABASE
+          - name: MYSQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: phonebook-cm
+                key: MYSQL_USER
+          - name: MYSQL_DATABASE_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: phonebook-cm
+                key: MYSQL_DATABASE_HOST
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-db-passwords
+                key: MYSQL_PASSWORD
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-db-passwords
+                key: MYSQL_ROOT_PASSWORD

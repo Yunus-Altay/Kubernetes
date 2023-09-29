@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  labels:
+    app: phonebook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysql
+  template:
+    metadata:
+      labels:
+        name: mysql
+        app: phonebook
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: phonebook-cm
+                key: MYSQL_DATABASE
+          - name: MYSQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: phonebook-cm
+                key: MYSQL_USER
+          - name: MYSQL_DATABASE_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: phonebook-cm
+                key: MYSQL_DATABASE_HOST
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-db-passwords
+                key: MYSQL_PASSWORD
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-db-passwords
+                key: MYSQL_ROOT_PASSWORD
+        volumeMounts:
+          - name: {{ .Values.volumes.name }}
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: {{ .Values.volumes.name }}
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim

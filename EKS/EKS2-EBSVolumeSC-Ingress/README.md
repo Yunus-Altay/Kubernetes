@@ -404,6 +404,8 @@ ingress-yaml-files
 sudo dnf install git -y
 mkdir repo && cd repo
 git init
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
 git remote add origin <origin-url>
 git config core.sparseCheckout true
 echo "subdirectory/under/repo/" >> .git/info/sparse-checkout  # do not put the repository folder name in the beginning

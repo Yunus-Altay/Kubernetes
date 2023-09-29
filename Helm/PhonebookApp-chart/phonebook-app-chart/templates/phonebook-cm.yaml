@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: phonebook-cm
+data:
+  MYSQL_DATABASE: {{ quote .Values.configmap.database }}
+  MYSQL_USER: {{ quote .Values.configmap.username }}
+  MYSQL_DATABASE_HOST: {{ quote .Values.configmap.database_host }}

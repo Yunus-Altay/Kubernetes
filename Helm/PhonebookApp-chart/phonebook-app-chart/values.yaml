@@ -1,0 +1,16 @@
+volumes:
+  name: mysql-storage
+  hostPath: /mnt/data
+  storage: 20Gi
+  accessMode: ReadWriteOnce
+
+configmap:
+  database: bookstore_db
+  username: simaox
+  database_host: db-service
+
+secret:
+  mysql_password: c2ltYW94MTIzNA==
+   # echo -n 'simaox1234' | base64
+  mysql_root_password: YWRtaW4xMjM0
+  # echo -n 'admin1234' | base64
