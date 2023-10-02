@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    environment: dev
+spec:
+  replicas: 15
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: # preferredDuringSchedulingIgnoredDuringExecution:
+          # - weight: 10                                        
+          #   preference: 
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: size 
+                operator: In 
+                values:
+                - large 
+                - medium
+
+#  Node affinity rule dictates that pods can only be placed on a node with a label whose key is 'size' and whose value is 'large' or 'medium'
+# With the other type of node affinity -preferredDuringSchedulingIgnoredDuringExecution-, the scheduler still schedules pods even if a matching node is not available

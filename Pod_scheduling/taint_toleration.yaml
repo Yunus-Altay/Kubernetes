@@ -1,0 +1,32 @@
+# kubectl taint nodes kube-worker clarus=way:NoExecute
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    environment: dev
+spec:
+  replicas: 15
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+      tolerations:
+      - key: "clarus"
+        operator: "Equal"
+        value: "way"
+        effect: "NoExecute"
+        # tolerationSeconds: 3600 # This field dictates how long the pod will stay bound to the node after the taint is added
+
+# Tolerations allow the scheduler to schedule pods with matching taints
+# Without the tolerations, pods cannot be scheduled on the tainted nodes.
