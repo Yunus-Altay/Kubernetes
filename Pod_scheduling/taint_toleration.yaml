@@ -29,4 +29,4 @@ spec:
         # tolerationSeconds: 3600 # This field dictates how long the pod will stay bound to the node after the taint is added
 
 # Tolerations allow the scheduler to schedule pods with matching taints
-# Without the tolerations, pods cannot be scheduled on the tainted nodes.
+# Without tolerations, pods cannot be scheduled on the tainted nodes.

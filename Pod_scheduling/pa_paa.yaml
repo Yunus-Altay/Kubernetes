@@ -67,5 +67,5 @@ spec:
 #  web-server-1   webserver-2   webserver-3
 #    cache-1        cache-2       cache-3
 
-#The overall effect is that each cache instance is likely to be accessed by a single client, that is running on the same node. 
+# The overall effect is that each cache instance is likely to be accessed by a single client, that is running on the same node. 
 # This approach aims to minimize both skew (imbalanced load) and latency.

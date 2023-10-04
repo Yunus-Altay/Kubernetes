@@ -1,3 +1,5 @@
+# kubectl label nodes node-1 size=large
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

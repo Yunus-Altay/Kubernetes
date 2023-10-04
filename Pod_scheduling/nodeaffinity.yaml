@@ -27,10 +27,13 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               - key: size 
-                operator: In 
+                operator: In # NotIn
                 values:
                 - large 
                 - medium
+                # - small
 
-#  Node affinity rule dictates that pods can only be placed on a node with a label whose key is 'size' and whose value is 'large' or 'medium'
+# Node affinity rule dictates that pods can only be placed on a node with a label whose key is 'size' and whose value is 'large' or 'medium'
 # With the other type of node affinity -preferredDuringSchedulingIgnoredDuringExecution-, the scheduler still schedules pods even if a matching node is not available
+# With node affinity feature of k8s, you can have your pods placed on nodes with different labels, unlike node selector
+# You can use the 'operator' attribute to prevent pods from being scheduled on nodes with specific labels

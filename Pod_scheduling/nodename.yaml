@@ -1,3 +1,5 @@
+# kubectl taint nodes kube-master node-role.kubernetes.io/control-plane:NoSchedule-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
