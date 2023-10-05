@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+
+# Every container must have a memory request, memory limit, cpu request, and cpu limit
+# Memory request total for all containers must not exceed 1 GiB
+# Memory limit total for all containers must not exceed 2 GiB
+# CPU request total for all containers must not exceed 1 CPU
+# CPU limit total for all Containers must not exceed 2 CPU
