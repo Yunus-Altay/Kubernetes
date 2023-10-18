@@ -9,4 +9,4 @@ spec:
     services.loadbalancers: "0"
     persistentvolumeclaims: "2"
 
-# In kubernetes, we can restrict the number of API objects, including Pods, PersistentVolumeClaims and Services, that can be created in a namespace
+# In kubernetes, we can restrict the number of API objects, including pods, persistent volume claims and services, that can be created in a namespace

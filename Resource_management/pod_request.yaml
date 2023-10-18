@@ -27,5 +27,5 @@ spec:
             memory: "750Mi"
             cpu: "750m"
 
-# In my case, the node the pods will run has the instance type of "t3.medium" which has 2 vCPUs
+# In my case, the node that the pods will run has the instance type of "t3.medium" which has 2 vCPUs
 # Only 3 pods will be in running state on account of insufficient CPU.

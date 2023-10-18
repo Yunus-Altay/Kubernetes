@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: args-commands
+  labels:
+    app: args-commands
+spec:
+  containers:
+  - name: args-commands
+    image: clarusway/entrypoint-cmd
+    command: ["sleep"]  
+    args: ["10"]  
+
+# Command field in a pod object overwrites ENTRYPOINT in Dockerfile, and args field overwrites CMD in Dockerfile
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine
+spec:
+  containers:
+  - image: alpine
+    name: alpine-container
+    env:
+    - name: MESSAGE
+      value: "hello world"
+    command: ["/bin/echo"]
+    args: ["$(MESSAGE)"]
+    # kubectl logs alpine 
+
+# You can define an argument for a Pod using any of the techniques available for defining environment variables, including ConfigMaps and Secrets
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine
+spec:
+  containers:
+  - image: alpine
+    name: alpine-container
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo hello; sleep 10;done"]    
+    # kubectl logs alpine -f
+
+# You can run your command in a shell
+# You can even run several commands piped together
