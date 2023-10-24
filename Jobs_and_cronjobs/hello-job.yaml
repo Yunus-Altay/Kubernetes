@@ -15,22 +15,3 @@ spec:
       restartPolicy: Never
 
 # The job creates 6 pods, with a  maximum of two pods running concurrently
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: hello-cronjob
-spec:
-  schedule: "* * * * *"
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: hello-cronjob-container
-            image: busybox
-            imagePullPolicy: IfNotPresent
-            command: ["/bin/sh", "-c", "date; echo Hello World"]
-          restartPolicy: Never
-
-# The cronjob creates a job that will run every minute
