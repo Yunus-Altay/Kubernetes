@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: clarusshop-v2
+spec:
+  replicas: 1 
+  selector:  
+    matchLabels:
+      app: clarusshop
+      version: v2
+  template: 
+    metadata:
+      labels:
+        app: clarusshop
+        version: v2
+    spec:
+      containers:
+      - name: clarusshop
+        image: clarusway/clarusshop:v2
+        ports:
+        - containerPort: 80
+
+# Canary deployment is a deployment strategy that releases an application or service incrementally to a subset of users
+# All infrastructure in a target environment is updated in small phases (e.g.: 2%, 25%, 75%, 100%)
+# Visit http://<public-node-ip>:<node-port> and see that the service will be routed to the new version at a portion of approximately %20
+# Increase the replicas of clarusshop-v2 deployment to 4. So the traffic balance will be 50-50
