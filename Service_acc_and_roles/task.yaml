@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app-sa
+  namespace: prod
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: app-clusterrole
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: app-clusterrolebinding
+  namespace: prod
+subjects:
+- kind: ServiceAccount
+  name: app-sa # service account name
+  namespace: prod
+roleRef:
+  kind: ClusterRole
+  name: app-clusterrole # cluster role name 
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubepod-2
+  namespace: prod
+spec:
+  containers:
+  - image: clarusway/kubectl
+    name:  kubepod-2
+  serviceAccountName: app-sa
