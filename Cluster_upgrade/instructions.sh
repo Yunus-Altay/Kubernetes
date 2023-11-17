@@ -36,14 +36,14 @@ apt-mark hold kubelet kubectl
 sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 # replace <master-node-to-uncordon> with the name of your master node
-kubectl uncordon <node-to-uncordon>
+kubectl uncordon <master-node-to-uncordon>
 # verify the status of the cluster
 kubectl get nodes # see the version of the master node upgraded
 
 ############ Upgrade kubelet and kubectl of worker node ############
 # We are about to upgrade the kubelet and kubectl on the worker node
 # untaint the master node if there is a single worker node and the master node is tainted
-# cordon the worker node whose components are about to be upgraded so that the pods can be redeployed on other node
+# cordon the worker node whose components are about to be upgraded so that the pods can be redeployed on another node
 # replace <worker-node-to-drain> with the name of your worker node you are draining
 kubectl drain <worker-node-to-drain> --ignore-daemonsets
 # upgrade the kubelet and kubectl
